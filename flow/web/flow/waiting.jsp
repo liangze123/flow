@@ -1,0 +1,44 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="dswork.common.DsFactory"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<%@include file="/commons/include/get.jsp"%>
+<style type="text/css">
+li,a {line-height:2em;}
+</style>
+</script>
+</head>
+<body>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">流程测试</td>
+		<td class="menuTool">
+			<a class="start" href="start.jsp">启动流程</a>
+		</td>
+	</tr>
+</table>
+<%
+String user = common.auth.AuthUtil.getLoginUser(request).getAccount();
+//String user =request.getSession().getValue("Account").toString();
+%>
+<%request.setAttribute("list", DsFactory.getFlow().queryWaiting(user));%>
+<ul>
+<c:forEach items="${list}" var="d" varStatus="status">
+	<li>
+		${fn:escapeXml(d.flowname)}[${fn:escapeXml(d.talias)}]
+		<c:if test="${d.tuser!=''}">
+		&nbsp;<a class="update" href="do.jsp?wid=${d.id}">办理</a>&nbsp;<a target="_blank" class="update" href="${ctx}/common/share/showFlowRunning.htm?piid=${d.piid}">查看图形</a>
+		</c:if>
+		<c:if test="${d.tusers!=''}">
+		&nbsp;<a class="update" href="take.jsp?wid=${d.id}">取得任务</a>
+		</c:if>
+	</li>
+</c:forEach>
+</ul>
+<br />
+</body>
+</html>

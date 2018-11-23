@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="OFC_DOCUMENTFILE">
+	<typeAlias alias="DocumentFile" type="tecamo.module.office.domain.DocumentFile" />
+	<resultMap id="OFC_DOCUMENTFILE_DocumentFileResult" class="DocumentFile">
+		<result column="ID" property="id" nullValue="0" jdbcType="DECIMAL" />
+		<result column="FILENAME" property="fileName" nullValue="" jdbcType="VARCHAR" />
+		<result column="FILETYPE" property="fileType" nullValue="" jdbcType="VARCHAR" />
+		<result column="FILESIZE" property="fileSize" nullValue="0" jdbcType="DECIMAL" />
+		<result column="FILEDATE" property="fileDate" nullValue="" jdbcType="VARCHAR" />
+		<result column="FILEBODY" property="fileBody" jdbcType="BLOB" />
+		<result column="FILEPATH" property="filePath" nullValue="" jdbcType="VARCHAR" />
+		<result column="USERNAME" property="userName" nullValue="" jdbcType="VARCHAR" />
+		<result column="DESCRIPT" property="descript" nullValue="" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="OFC_DOCUMENTFILE_getById" resultMap="OFC_DOCUMENTFILE_DocumentFileResult" parameterClass="long">
+		select ID,FILENAME,FILETYPE,FILESIZE,FILEDATE,FILEBODY,FILEPATH,USERNAME,DESCRIPT from OFC_DOCUMENTFILE
+		where ID = #id:DECIMAL#
+	</select>
+	<delete id="OFC_DOCUMENTFILE_delById" parameterClass="long">
+		delete from OFC_DOCUMENTFILE
+		where ID = #id:DECIMAL#
+	</delete>
+	<insert id="OFC_DOCUMENTFILE_add" parameterClass="DocumentFile">
+		insert into OFC_DOCUMENTFILE (ID,FILENAME,FILETYPE,FILESIZE,FILEDATE,FILEPATH,USERNAME,DESCRIPT,FILEBODY)
+		values (#id#,#fileName#,#fileType#,#fileSize#,#fileDate#,#filePath#,#userName#,#descript#,#fileBody#)
+	</insert>
+	<update id="OFC_DOCUMENTFILE_update" parameterClass="DocumentFile">
+		update OFC_DOCUMENTFILE set
+			FILENAME=#fileName#,
+			FILETYPE=#fileType#,
+			FILESIZE=#fileSize#,
+			FILEDATE=#fileDate#,
+			FILEPATH=#filePath#,
+			USERNAME=#userName#,
+			DESCRIPT=#descript#,
+			FILEBODY=#fileBody#
+		where ID = #id:DECIMAL#
+	</update>
+</sqlMap>

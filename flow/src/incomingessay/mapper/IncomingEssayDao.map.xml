@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="incomingessay.dao.IncomingEssayDao">
+
+<insert id="insert" parameterType="incomingessay.model.IncomingEssay">
+	insert into INCOMING_ESSAY
+	(ID, YWLSH, SWBH, SWDATE, LWDW, ORIGINALDATE, LWBH, TITLE, BFTIME, NBYJ, LDPS, YWQK, BLQKJJG, EMERGENCY, MJ)
+	values
+	(#{id}, #{ywlsh}, #{swbh}, #{swdate}, #{lwdw}, #{originaldate}, #{lwbh}, #{title}, #{bftime}, #{nbyj}, #{ldps}, #{ywqk}, #{blqkjjg}, #{emergency}, #{mj})
+</insert>
+
+<delete id="delete">
+	delete from INCOMING_ESSAY where ID=#{id}
+</delete>
+
+<update id="update" parameterType="incomingessay.model.IncomingEssay">
+	update INCOMING_ESSAY set
+		YWLSH=#{ywlsh},
+		SWBH=#{swbh},
+		SWDATE=#{swdate},
+		LWDW=#{lwdw},
+		ORIGINALDATE=#{originaldate},
+		LWBH=#{lwbh},
+		TITLE=#{title},
+		BFTIME=#{bftime},
+		NBYJ=#{nbyj},
+		LDPS=#{ldps},
+		YWQK=#{ywqk},
+		BLQKJJG=#{blqkjjg},
+		EMERGENCY=#{emergency},
+		MJ=#{mj}
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="incomingessay.model.IncomingEssay">
+	<id property="id" column="ID" />
+	<result property="ywlsh" column="YWLSH" />
+	<result property="swbh" column="SWBH" />
+	<result property="swdate" column="SWDATE" />
+	<result property="lwdw" column="LWDW" />
+	<result property="originaldate" column="ORIGINALDATE" />
+	<result property="lwbh" column="LWBH" />
+	<result property="title" column="TITLE" />
+	<result property="bftime" column="BFTIME" />
+	<result property="nbyj" column="NBYJ" />
+	<result property="ldps" column="LDPS" />
+	<result property="ywqk" column="YWQK" />
+	<result property="blqkjjg" column="BLQKJJG" />
+	<result property="emergency" column="EMERGENCY" />
+	<result property="mj" column="MJ" />
+</resultMap>
+
+<sql id="columns">ID, YWLSH, SWBH, SWDATE, LWDW, ORIGINALDATE, LWBH, TITLE, BFTIME, NBYJ, LDPS, YWQK, BLQKJJG, EMERGENCY, MJ</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(id)"> and ID=#{id} </if>
+		<if test="@Ognl@isNotEmpty(ywlsh)"> and YWLSH like #{ywlsh, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(swbh)"> and SWBH like #{swbh, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(swdate)"> and SWDATE like #{swdate, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(lwdw)"> and LWDW like #{lwdw, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(originaldate)"> and ORIGINALDATE like #{originaldate, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(lwbh)"> and LWBH like #{lwbh, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(title)"> and TITLE like #{title, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(bftime)"> and BFTIME like #{bftime, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(nbyj)"> and NBYJ like #{nbyj, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(ldps)"> and LDPS like #{ldps, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(ywqk)"> and YWQK like #{ywqk, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(blqkjjg)"> and BLQKJJG like #{blqkjjg, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(emergency)"> and EMERGENCY like #{emergency, typeHandler=LikePrefixTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(mj)"> and MJ like #{mj, typeHandler=LikeTypeHandler} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from INCOMING_ESSAY where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="dswork.top" /><include refid="columns" /> from INCOMING_ESSAY
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from incoming_essay
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>
