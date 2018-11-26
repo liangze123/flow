@@ -26,15 +26,9 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="dswork.common.jar"/>
-	<classpathentry kind="lib" path="web/WEB-INF/lib/dswork.common.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/dswork-common.jar"/>
 	<classpathentry kind="src" path="config"/>
 	<classpathentry kind="src" path="common"/>
-	<classpathentry exported="true" kind="lib" path="web/lib/dswork-common.jar" sourcepath="/DsCommon1/dswork-common/dswork/common/dao">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="/Lib/module/dswork/dswork-flow.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>

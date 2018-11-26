@@ -1,24 +1,28 @@
 <%@ page language="java" pageEncoding="UTF-8"%><%
 	String mHttpUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
-common.auth.Auth auth = common.auth.AuthUtil.getLoginUser(request);
 %>
 <script language="javascript">
 function openOffice(obj){
-	var username = "<%=auth.getName();%>";
-	var pid = $(obj).parent().find(".pid").val();
+	var piid = $(obj).parent().find(".piid").val();
 	var recordid = $(obj).parent().find(".recordid").val();
+	var aurl = "flow/office/openAndSave_Word.jsp?piid=" + piid;
+	var username = "admin";
 	if(recordid == ""){
-		recordid = "<%=dswork.core.util.UniqueId.genId();%>";
+		recordid = "<%=dswork.core.util.UniqueId.genId()%>";
 		$(obj).parent().find(".recordid").val(recordid);
+		aurl = aurl + "&recordid=" + recordid + "&username=" + username;
 	}
 	var filename = $(obj).parent().find(".filename").val();
 	var filetype = $(obj).parent().find(".filetype").val();
-	var aurl = "flow/office/openAndSave_Word.jsp?pid=" + pid;
-	if(recordid != ""){
-		aurl = aurl + "&username=" + username + "&recordid=" + recordid + "&filename=" + filename + "&filetype=" + filetype;
+	if(filename != ""){
+		aurl = aurl + "&filename=" + filename;
+	}
+	if(filetype != ""){
+		aurl = aurl + "&filetype=" + filetype;
 	}
 	StartBrowserBeforeCheck(aurl);
 }
+
 //弹窗应用主要功能 弹窗应用跳转
 function StartBrowserBeforeCheck(aurl) {
     $.ajax({
@@ -71,7 +75,7 @@ function Link(url, skin) {
 	connect();
 }
 
-   //与弹窗应用页面通讯使用
+//与弹窗应用页面通讯使用
 function connect() {
 	$.ajax({
 		type : "get",

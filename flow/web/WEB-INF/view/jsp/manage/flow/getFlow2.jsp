@@ -97,7 +97,7 @@ $(function(){
 <%-- 			<a class="update" href="updFlow1.htm?keyIndex=${d.id}">修改</a> --%>
 <%-- 			<a class="menuTool-user" onclick="return deployFlow('${d.id}');">发布</a>	 --%>
 <!-- 			<a class="update" href="addform1.htm">表单选择</a> -->
-			<a class="start" href="../../flow/start.jsp?alias=${fn:escapeXml(d.alias)} ">启动流程</a>
+			<a class="start" href="../../flow/start.jsp?alias=${fn:escapeXml(d.alias)}">启动流程</a>
 		</td>
 	</tr>
 </c:forEach>

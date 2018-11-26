@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="synergy.dao.SynergyProfessionDao">
+
+<insert id="insert" parameterType="synergy.model.SynergyProfession">
+	insert into SYNERGY_PROFESSION
+	(ID, YWLSH, FLOW_PI_ID, ALIAS, DIFFERSERV, MEMO, INITIATOR, STARTTIME)
+	values
+	(#{id}, #{ywlsh}, #{flowPiId}, #{alias}, #{differserv}, #{memo}, #{initiator}, #{starttime})
+</insert>
+
+<delete id="delete">
+	delete from SYNERGY_PROFESSION where ID=#{id}
+</delete>
+
+<update id="update" parameterType="synergy.model.SynergyProfession">
+	update SYNERGY_PROFESSION set
+		ID=#{id},
+		YWLSH=#{ywlsh},
+		FLOW_PI_ID=#{flowPiId},
+		ALIAS=#{alias},
+		DIFFERSERV=#{differserv},
+		MEMO=#{memo},
+		INITIATOR=#{initiator},
+		STARTTIME=#{starttime}
+	where  ID=#{id}
+</update>
+
+<resultMap id="result" type="synergy.model.SynergyProfession">
+	<result property="id" column="ID" />
+	<result property="ywlsh" column="YWLSH" />
+	<result property="flowPiId" column="FLOW_PI_ID" />
+	<result property="alias" column="ALIAS" />
+	<result property="differserv" column="DIFFERSERV" />
+	<result property="memo" column="MEMO" />
+	<result property="initiator" column="INITIATOR" />
+	<result property="starttime" column="STARTTIME" />
+</resultMap>
+
+<sql id="columns">ID, YWLSH, FLOW_PI_ID, ALIAS, DIFFERSERV, MEMO, INITIATOR, STARTTIME</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(id)"> and ID=#{id} </if>
+		<if test="@Ognl@isNotEmpty(ywlsh)"> and YWLSH like #{ywlsh, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(flowPiId)"> and FLOW_PI_ID=#{flowPiId} </if>
+		<if test="@Ognl@isNotEmpty(alias)"> and ALIAS like #{alias, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(differserv)"> and DIFFERSERV like #{differserv, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(memo)"> and MEMO like #{memo, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(initiator)"> and INITIATOR like #{initiator, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(starttime)"> and STARTTIME like #{starttime, typeHandler=LikeTypeHandler} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from SYNERGY_PROFESSION where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="dswork.top" /><include refid="columns" /> from SYNERGY_PROFESSION
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from synergy_profession
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>

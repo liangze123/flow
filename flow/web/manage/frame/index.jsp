@@ -43,12 +43,13 @@ var treedata = [
 ]}
 ,{id:11,name:'系统设置', img:"", imgOpen:"", url:'', items:[
 	{id:111,name:'用户管理', img:"", imgOpen:"", url:'/flow/waiting.jsp', items:[]}
+	,{id:200005,name:'流程管理', img:"", imgOpen:"", url:'/../DsCommon/ds/common/flow/getFlowCategoryTree.htm', items:[]}
 	,{id:111,name:'权限管理', img:"", imgOpen:"", url:'/flow/waiting.jsp', items:[]}
 	,{id:111,name:'日志查看', img:"", imgOpen:"", url:'/flow/waiting.jsp', items:[]}
 	,{id:111,name:'单位信息管理', img:"", imgOpen:"", url:'/office/editFile1.jsp', items:[]}
 	,{id:111,name:'常用名称管理', img:"", imgOpen:"", url:'/office/editFile2.jsp', items:[]}
 	,{id:111,name:'常用名称管理1', img:"", imgOpen:"", url:'/office/webOffice.jsp', items:[]}
-	,{id:111,name:'测试1', img:"", imgOpen:"", url:'/office/weboffice1.jsp', items:[]}
+	,{id:111,name:'测试1', img:"", imgOpen:"", url:'/office/oword.jsp', items:[]}
 ]}
 ,{id:11,name:'流程示例', img:"", imgOpen:"", url:'', items:[
 	{id:111,name:'流程测试', img:"", imgOpen:"", url:'/demo/up1.jsp', items:[]}

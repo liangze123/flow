@@ -1,17 +1,15 @@
 <%@ page language="java" pageEncoding="UTF-8"%><%
-	//自动获取OfficeServer和OCX文件完整URL路径
-	String mHttpUrlName=request.getRequestURI();
-	String mScriptName=request.getServletPath();
-	String mServerUrl="http://" + request.getServerName()+ ":"+request.getServerPort() + mHttpUrlName.substring(0,mHttpUrlName.lastIndexOf(mScriptName)) + "/";//取得OfficeServer文件的完整URL
+	String mHttpUrlName = request.getRequestURI();
+	String mScriptName = request.getServletPath();
+	String mServerUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + mHttpUrlName.substring(0,mHttpUrlName.lastIndexOf(mScriptName)) + "/flow/office/saveWord.jsp";
+	System.out.println(mServerUrl);
 	String KGCopyright = dswork.core.util.EnvironmentUtil.getToString("KGCopyright", "");
 	dswork.web.MyRequest req = new dswork.web.MyRequest(request);
-
-	Long pid = req.getLong("pid");
-	String recordid = req.getString("recordid", "123456789");
 	String username = req.getString("username", "演示人");
+	String recordid = req.getString("recordid", "123456789");
 	String filename = req.getString("filename", "sample.doc");
 	String filetype = req.getString("filetype", ".doc");
-	
+	Long piid = req.getLong("piid");
 %>
 <html>
 <head>
@@ -32,13 +30,15 @@ function Load()
 		WebOfficeObj.RecordID = "<%=recordid%>";
 		WebOfficeObj.FileName = "<%=filename%>";
 		WebOfficeObj.FileType = "<%=filetype%>";            //FileType:文档类型  .doc  .xls
-		WebOfficeObj.DebugMode = false;						//开启or关闭调试模式  true：开启  false：关闭
+		WebOfficeObj.DebugMode = true;						//开启or关闭调试模式  true：开启  false：关闭
 		WebOfficeObj.ShowWindow = true;					//true显示进度条//false隐藏进度条
 		WebOfficeObj.EditType = "1";				//设置加载文档类型 0 锁定文档，1无痕迹模式，2带痕迹模式
-		WebOfficeObj.ShowMenu = 0;
 		WebOfficeObj.ShowToolBar = 0;
 		// WebOfficeObj.SetCaption(WebOfficeObj.UserName + "正在编辑文档");
 		SetGraySkin();	//设置控件皮肤
+		
+		WebOfficeObj.ShowMenu = "1";
+		WebOfficeObj.AppendMenu("1", "保存文件(&S)");
 		
 		if(WebOfficeObj.WebOpen())
 		{
@@ -50,6 +50,7 @@ function Load()
 		StatusMsg(e.description);
 	}
 }
+
 //无进度条打开文档
 function LoadNoShowProgress()
 {
@@ -76,6 +77,11 @@ function LoadNoShowProgress()
 	{
 		StatusMsg(e.description);
 	}
+}
+
+function save(){
+	WebOfficeObj.WebUrl = "<%=mServerUrl%>?piid=" + <%=piid%>;
+	return WebOfficeObj.WebSave();
 }
 
 //保存文档
@@ -154,6 +160,7 @@ function OnReady()
 <body KGBrowser="<%=KGCopyright%>"  onbeforeunload="OnUnLoad()" onUnload="OnUnLoad();">
 	<div style="width: 100%; height: 100%">
 		<div style="width: 100%;">
+			<input style="color:Red;" type=button value="保存文档" onclick="save()">
 			<input style="color:Red;" type=button value="无进度条打开文档" onclick="OnUnLoad();LoadNoShowProgress()">
 			<input style="color:Red;" type=button value="有进度条打开文档" onclick="OnUnLoad();Load()">
 			<input style="color:Red;" type=button value="保存文档到服务器" onclick="SaveDocument()">
