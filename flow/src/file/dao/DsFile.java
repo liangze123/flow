@@ -2,20 +2,23 @@
  * Model
  */
 package file.dao;
+
 public class DsFile
 {
-	// 
+	//
 	private Long id = 0L;
-	// 
+	//
+	private Long piid = 0L;
+	//
 	private String fileId = "";
-	// 
+	//
 	private String filename = "";
-	// 
+	//
 	private String fileext = "";
-	// 
-	private  byte[] filebody;
-	
-	// 
+	//
+	private byte[] filebody;
+
+	//
 	private int state = 0;
 
 	public Long getId()
@@ -26,6 +29,16 @@ public class DsFile
 	public void setId(Long id)
 	{
 		this.id = id;
+	}
+
+	public Long getPiid()
+	{
+		return piid;
+	}
+
+	public void setPiid(Long piid)
+	{
+		this.piid = piid;
 	}
 
 	public String getFileId()
@@ -58,8 +71,15 @@ public class DsFile
 		this.fileext = fileext;
 	}
 
+	public byte[] getFilebody()
+	{
+		return filebody;
+	}
 
-
+	public void setFilebody(byte[] filebody)
+	{
+		this.filebody = filebody;
+	}
 
 	public int getState()
 	{
@@ -69,15 +89,5 @@ public class DsFile
 	public void setState(int state)
 	{
 		this.state = state;
-	}
-
-	public byte[] getFilebody()
-	{
-		return filebody;
-	}
-
-	public void setFilebody(byte[] filebody)
-	{
-		this.filebody = filebody;
 	}
 }

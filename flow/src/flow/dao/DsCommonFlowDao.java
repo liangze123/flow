@@ -4,6 +4,7 @@
 package flow.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -61,5 +62,11 @@ public class DsCommonFlowDao extends BaseDao<DsCommonFlow, Long>
 		map.put("id", id);
 		map.put("deployid", deployid);
 		executeUpdate("updateDeployid", map);
+	}
+
+	public List<DsCommonFlow> queryListmax(Map<String, Object> map)
+	{
+		
+		return (List<DsCommonFlow>)executeSelectList("queryListmax", map);
 	}
 }

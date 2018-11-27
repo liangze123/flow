@@ -100,7 +100,10 @@ public class DsCommonFlowService
 	{
 		return flowDao.queryList(map);
 	}
-
+	public List<DsCommonFlow> queryListFlowmax(Map<String, Object> map)
+	{
+		return flowDao.queryListmax(map);
+	}
 	public void updateStatus(Long id, int status)
 	{
 		flowDao.updateStatus(id, status);

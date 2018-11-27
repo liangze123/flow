@@ -48,34 +48,7 @@ public class DsCommonFlowController2 extends BaseController
 	@RequestMapping("/orglist")
 	public String orglist( long pid)
 	{
-//		String men =dswork.common.DsCommonFactoryOrg.getInstance().getJsonOrgTree(pid);
-//		DsCommonFactoryOrg b= toBean(men,dswork.common.DsCommonFactoryOrg.class);
-		
 		return "/flow/orglist.jsp";
-//		try
-//		{
-//			Long categoryid = req.getLong("categoryid");
-//			if(categoryid > 0)
-//			{
-//				DsCommonFlowCategory po = service.get(categoryid);
-//				if(po != null)
-//			{
-//					PageRequest rq = getPageRequest();
-//					rq.getFilters().put("vnum", 0);
-//					put("po", po);
-//					put("list2", service.queryListFlow(rq.getFilters()));
-//					List<DsCommonFlow> a = service.queryListFlow(rq.getFilters());
-//					return "/manage/flow/chooseFlow.jsp";
-//				}
-//			}
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//			print("0:" + e.getMessage());
-//		}
-//		return null;
-		
 	}
 
 	// 获得待办列表
@@ -97,8 +70,8 @@ public class DsCommonFlowController2 extends BaseController
 				rq.getFilters().put("vnum", 1);
 				rq.getFilters().put("username", "jbr1");
 				put("po", po);
-				List<DsCommonFlow> a=service.queryListFlow(rq.getFilters());
-				put("list", service.queryListFlow(rq.getFilters()));
+				List<DsCommonFlow> a=service.queryListFlowmax(rq.getFilters());
+				put("list", service.queryListFlowmax(rq.getFilters()));
 				return "/manage/flow/getFlow2.jsp";
 			}
 		}
@@ -159,6 +132,7 @@ public class DsCommonFlowController2 extends BaseController
 				{
 						PageRequest rq = getPageRequest();
 						rq.getFilters().put("vnum", 0);
+						rq.getFilters().put("maxid", "44");
 						put("po", po);
 						put("list2", service.queryListFlow(rq.getFilters()));
 						List<DsCommonFlow> a = service.queryListFlow(rq.getFilters());
@@ -264,5 +238,15 @@ public class DsCommonFlowController2 extends BaseController
 			throw new RuntimeException("json 数据解析错误");
 		}
 	return toJson(map);
+	}
+	//获取待办
+	private  String getwaiting() 
+	{
+		return null;
+	}
+	//跳转到办理页面
+	private  String dothing() 
+	{
+		return null;
 	}
 }

@@ -4,6 +4,7 @@ dswork.web.MyRequest req = new dswork.web.MyRequest(request);
 Long piid = req.getLong("piid");
 dswork.web.MyFile f = req.getFile("FileData");
 String[] formData = req.getStringArray("FormData");
+OfficeUtil util = new OfficeUtil();
 if(formData.length > 0)
 {
 	String data = formData[0];
@@ -17,7 +18,40 @@ if(map != null)
 	String filetype = map.get("FILETYPE");
 	if("LOADFILE".equals(map.get("OPTION")))
 	{
-		
+		int isOK = 0;
+		try
+		{
+			long id = Long.parseLong(recordid);
+			if(id > 0)
+			{
+				DsFileDao dao = new DsFileDao();
+				DsFile model = dao.getById(id);
+				if(model == null)
+				{
+					model = new DocumentFile();
+					model.setId(id);
+					model.setFileName("市委公文");
+					model.setFileType(".DOC");
+					model.setFileBody(util.getDataStream());
+					model.setUserName("tecamo");
+					isOK = dao.add(model);
+				}
+				else
+				{
+					model.setFileName("市委公文");
+					model.setFileType(".DOC");
+					model.setFileSize(util.getDataStream().length);
+					model.setUserName("tecamo");
+					isOK = dao.update(model);
+				}
+				util.SetMsgByName ("STATUS", "保存成功!");
+				//util.setMsgError("");
+				util.send(response);
+			}
+		}
+		catch(Exception ex)
+		{
+		}
 	}
 	else if("SAVEFILE".equals(map.get("OPTION")))
 	{

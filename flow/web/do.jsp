@@ -139,9 +139,9 @@ function loaddata(name, value, objectid, type, ename){
 		<c:if test="${dt.tuse == 'extend'}">
 			<c:if test="${dt.ttype[0].key=='word' && dt.ttype[0].val=='word'}">
 				<div>
-					<input type="hidden" class="recordid" value="${fn:escapeXml()}">
-					<input type="hidden" class="filename" value="${fn:escapeXml()}">
-					<input type="hidden" class="filetype" value="${fn:escapeXml()}">
+<%-- 					<input type="hidden" class="recordid" value="${fn:escapeXml()}"> --%>
+<%-- 					<input type="hidden" class="filename" value="${fn:escapeXml()}"> --%>
+<%-- 					<input type="hidden" class="filetype" value="${fn:escapeXml()}"> --%>
 					<input type="hidden" class="pid" value="${fn:escapeXml(po.pid)}">
 					<button type="button" onclick="openOffice(this)">编辑文档</button>
 				</div>

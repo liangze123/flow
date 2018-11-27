@@ -40,8 +40,13 @@
 	<result property="datatable" column="DATATABLE" />
 </resultMap>
 
+
 <sql id="columns">
 	ID, CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS, FLOWXML,DATATABLE
+</sql>
+
+<sql id="columnsformax">
+	max(ID) as ID, CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS, FLOWXML,DATATABLE
 </sql>
 
 <sql id="columns1">
@@ -78,9 +83,16 @@
 	<include refid="dynamicWhere1" />
 </select>
 
+
+<select id="queryListmax" resultMap="result">
+	select <include refid="columnsformax" /> from DS_FLOW 
+	<include refid="dynamicWhere1" />  GROUP BY ALIAS 
+</select>
+
+
 <select id="queryCount" resultType="int">
 	select count(1) from DS_FLOW
-	<include refid="dynamicWhere" />
+	<include refid="dynamicWhere1" />
 </select>
 
 </mapper>

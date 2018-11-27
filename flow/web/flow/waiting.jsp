@@ -20,7 +20,8 @@ li,a {line-height:2em;}
 		</td>
 	</tr>
 </table>
-<%request.setAttribute("list", DsFactory.getFlow().queryWaiting("admin"));%>
+<%String user = common.auth.AuthUtil.getLoginUser(request).getAccount(); %>
+<%request.setAttribute("list", DsFactory.getFlow().queryWaiting(user));%>
 <ul>
 <c:forEach items="${list}" var="d" varStatus="status">
 	<li>

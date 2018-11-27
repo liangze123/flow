@@ -1,3 +1,6 @@
+<%@page import="file.dao.DsFile"%>
+<%@page import="dswork.spring.BeanFactory"%>
+<%@page import="file.dao.DsFileDao"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -7,6 +10,7 @@
 <head>
 <title></title>
 <%@include file="/commons/include/upd.jsp"%>
+<%@include file="/flow/office/oword.jsp"%>
 <script type="text/javascript" src="/web/js/jskey/jskey_upload.js"></script>
 <style type="text/css">
 body {line-height:2em;}
@@ -37,6 +41,9 @@ try
 	com.google.gson.Gson gson = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 	List<IFlowDataRow> dt = gson.fromJson(po.getDatatable(), List.class);
 	request.setAttribute("dt", dt);
+	DsFileDao dao = (DsFileDao) BeanFactory.getBean("dsFileDao");
+	DsFile f = dao.getByPiid(po.getPiid());
+	request.setAttribute("f", f);
 %>
 	流程名称：${po.flowname}<br />
 	当前任务：${po.talias}&nbsp;${po.tname}<br />
@@ -136,6 +143,15 @@ function loaddata(name, value, objectid, type, ename){
 			</script>
 		</c:if>
 		<c:if test="${dt.tuse == 'extend'}">
+			<c:if test="${dt.ttype[0].key=='word' && dt.ttype[0].val=='word'}">
+				<div>
+					<input type="hidden" class="recordid" value="${f.id}">
+					<input type="hidden" class="filename" value="">
+					<input type="hidden" class="filetype" value="">
+					<input type="hidden" class="piid" value="${fn:escapeXml(po.piid)}">
+					<button type="button" onclick="openOffice(this)">编辑文档</button>
+				</div>
+			</c:if>
 			<c:forEach items="${dt.ttype}" var="tp" > 
 				<script type="text/javascript">document.write("${tp.key}" + ":" + "${tp.val}" + "，");</script>
 			</c:forEach> 
